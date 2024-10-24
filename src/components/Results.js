@@ -12,10 +12,11 @@ function Results(props) {
   const [visible, setVisible] = useState(true);
   const [showDeco, setShowDeco] = useState(false);
   const [page, setPage] = useState(1);
-  const dreamingLandscapesLink = "https://www.athousanddreams.world/the-dreaming-landscapes";
-  const dreamingProfilesLink = "https://www.athousanddreams.world/the-dreaming-profiles";
-  const essentialWorkshopsLink = "https://www.athousanddreams.world/the-essential-dreaming-workshop";
-  const athousanddreamsLink = "https://www.athousanddreams.world"
+  const [popupVisible, setPopupVisible] = useState(false);
+  const dreamingLandscapesLink = "https://athousanddreams.world/the-dreaming-landscapes";
+  const dreamingProfilesLink = "https://athousanddreams.world/the-dreaming-profiles";
+  const essentialWorkshopsLink = "https://athousanddreams.world/the-essential-dreaming-workshop";
+  const athousanddreamsLink = "https://athousanddreams.world/"
   const aberdeemLink = "https://aberdeem.medium.com/";
   const talkshowLink = "https://youtube.com/@athousanddreams144?si=hBzEPeJOM3ZgGCUo";
 
@@ -59,6 +60,27 @@ function Results(props) {
       setVisible(true);
     }, 500);
   };
+
+  const handleClosePopup = () => {
+    setPopupVisible(false);
+  };
+  // Abrir popup automáticamente después de 3 segundos al llegar a la página 6
+  useEffect(() => {
+    if (page === 6) {
+      const timer = setTimeout(() => {
+        setPopupVisible(true);
+      }, 2000);
+      return () => clearTimeout(timer); // Limpiar el timer cuando el componente se desmonta
+    }
+  }, [page]);
+
+  useEffect(() => {
+    if ([2, 3, 4].includes(page)) {
+      setShowDeco(true);
+    } else {
+      setShowDeco(false);
+    }
+  }, [page]);
 
   const handleOpenLink = (link) => {
     window.open(link, '_blank')
@@ -438,23 +460,20 @@ function Results(props) {
                   )
                 }
 
-                {
-                  page === 6 && (
+                {page === 6 && (
                     <div className={`${visible ? "fade-in" : "fade-out"}`}>
                       <div className="share-section">
                         <div className='share-section-column-1'>
                           <div className="share-section-profile">
                             <div className="back-div-2"></div>
-                            <div className="front-div-2"><img src={`../images/Profiles/${type}.svg`} alt=""></img></div>
+                            <div className="front-div-2">
+                              <img src={`../images/Profiles/${type}.svg`} alt=""></img>
+                            </div>
                           </div>
                         </div>
                         <div className='share-section-column-2'>
                           <div className='adorno-final'>
-                            <img
-                              src="../images/Color/capa.svg"
-                              alt=""
-                            >
-                            </img>
+                            <img src="../images/Color/capa.svg" alt=""></img>
                           </div>
                           <h2 className="dreamer-subtitle">Share your <i>profile!</i></h2>
                           <p>Tell your <strong>friends</strong> what type of <strong>dreamer you are.</strong></p>
@@ -463,19 +482,29 @@ function Results(props) {
                           </div>
                           <div className='not-display-mobile'>
                             <p className='final__download-text'><strong>Click here to download</strong> your dreaming profile and <strong>save it for later!</strong></p>
-                            <a href={`https://thedreamerquiz.athousanddreams.world/pdfs/${type}.pdf`} target='_blank' rel="noreferrer"><button className="final__continue-button download-button">DOWNLOAD RESULTS</button></a>
+                            <a href={`https://thedreamerquiz.athousanddreams.world/pdfs/${type}.pdf`} target='_blank' rel="noreferrer">
+                              <button className="final__continue-button download-button">DOWNLOAD RESULTS</button>
+                            </a>
                           </div>
                         </div>
                       </div>
+
+                      {/* Popup trigger automatic after 3 seconds */}
+                      {popupVisible && (
+                          <div className="popup-overlay" onClick={handleClosePopup}>
+                            <div className="popup-content">
+                              <a href="https://athousanddreams.world/the-essential-dreaming-workshop/#table-shop" target="_blank" rel="noopener noreferrer">
+                                <img src="../images/Workshop_Day_of_the_dead.png" alt="Popup Link" />
+                              </a>
+                            </div>
+                          </div>
+                      )}
+
                       <div className="button-deco">
-                        <img
-                          src={`../images/footer-bg-mobile.svg`}
-                          alt="button-deco"
-                        ></img>
+                        <img src={`../images/footer-bg-mobile.svg`} alt="button-deco"></img>
                       </div>
                     </div>
-                  )
-                }
+                )}
 
                 <div className='final__controllers-container'>
                   <div className={`final__controllers ${visible ? "fade-in" : "fade-out"}`}>

@@ -1320,3 +1320,45 @@
     display: none;
   }
 }
+/* POPUP */
+/* Estilos para el popup */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.popup-content img {
+  width: 100%;
+  max-width: 600px;
+  cursor: pointer;
+}
+
+
+.open-popup-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.open-popup-button:hover {
+  background-color: #0056b3;
+}
