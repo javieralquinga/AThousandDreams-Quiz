@@ -30,7 +30,7 @@ function Intro({ onboarding, setOnboarding }) {
             </p>          
             <strong>May you dream your world!</strong>
           </div>
-          <div className="intro__message-team">A Thousand Dreams' Team</div>
+          <div className="intro__message-team">A Thousand Dreams' Team.</div>
           <button className="btn start intro__btn" onClick={handleStart}>
             TAKE THE QUIZ
           </button>
